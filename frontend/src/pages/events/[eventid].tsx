@@ -9,7 +9,7 @@ import {
   useIsHoldingEventNftByAddress,
 } from "src/hooks/useMintNFT";
 import { NFTItem } from "src/components/atoms/nft/NFTItem";
-import { Event } from "types/Event";
+import { Event as EventType } from "types/Event";
 import { useEventById, useParseEventDate } from "src/hooks/useEvent";
 import OrganizerInfo from "src/components/atoms/events/OrganizerInfo";
 import { CalendarIcon } from "@chakra-ui/icons";
@@ -20,7 +20,7 @@ import MintNFTLoginRequired from "src/components/atoms/events/MintNFTLoginRequir
 import EventEditSection from "src/components/organisms/EventEditSection";
 import { HoldersOfEvent } from "src/components/molecules/HoldersOfEvent";
 
-const MintNFTSection: FC<{ event: Event.EventRecord }> = ({ event }) => {
+const MintNFTSection: FC<{ event: EventType.EventRecord }> = ({ event }) => {
   const address = useAddress();
   const walletInstance = useWallet();
   const { t } = useLocale();

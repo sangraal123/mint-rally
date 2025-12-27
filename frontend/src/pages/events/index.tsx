@@ -53,8 +53,8 @@ const Events: NextPage = () => {
           <Image
             src="/images/events/listpage_header.jpg"
             alt="banner image"
-            width={"1440px"}
-            height={"240px"}
+            width={1440}
+            height={240}
             layout="responsive"
           />
         </div>
