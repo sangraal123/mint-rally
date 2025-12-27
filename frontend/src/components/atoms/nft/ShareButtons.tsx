@@ -77,7 +77,6 @@ export const ShareButtons: FC<Props> = ({
         w={6}
         h={6}
         color="green.500"
-        size="lg"
         mx={2}
         cursor="pointer"
       />
