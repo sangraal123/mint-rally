@@ -34,7 +34,6 @@ const Home: NextPage = () => {
           alt="mainImg"
         />
       </div>
-
       <Container maxW={1000} pt={10} pb={20}>
         <Heading fontSize="3xl" mb={10}>
           {t.FEATUE}
@@ -126,7 +125,6 @@ const Home: NextPage = () => {
           </GridItem>
         </SimpleGrid>
       </Container>
-
       <Box backgroundColor="mint.subtle">
         <Container maxW={1000} pt={10} pb={20}>
           <Heading fontSize="3xl" mb={10}>
@@ -239,7 +237,6 @@ const Home: NextPage = () => {
           </SimpleGrid>
         </Container>
       </Box>
-
       <Container maxW={1000} paddingTop={20}>
         <Flex alignItems="bottom" paddingBottom={6}>
           <Heading fontSize="3xl">{t.RECENT_EVENTS}</Heading>
@@ -257,13 +254,13 @@ const Home: NextPage = () => {
                       href={"/events/" + item.eventRecordId}
                       key={item.eventRecordId.toString()}
                     >
-                      <a>
-                        <EventCard
-                          title={item.name}
-                          description={item.description}
-                          date={item.date}
-                        ></EventCard>
-                      </a>
+
+                      <EventCard
+                        title={item.name}
+                        description={item.description}
+                        date={item.date}
+                      ></EventCard>
+
                     </Link>
                   );
                 })}
@@ -274,7 +271,6 @@ const Home: NextPage = () => {
           </VStack>
         )}
       </Container>
-
       <Box background="mint.primary" mt={20} color="mint.bg">
         <Container maxW={1000} py={10}>
           <Text fontSize="2xl" mb={5} fontWeight="bold">

@@ -38,24 +38,24 @@ const ENSName: FC<Props> = ({
             href={`https://${
               chainId === "137" ? "polygonscan.com" : "mumbai.polygonscan.com"
             }/address/${address}`}
-            passHref
+            target="_blank"
           >
-            <a target="_blank">
-              <Tooltip
-                label="View on PolygonScan"
-                aria-label="A tooltip"
-                placement="right-start"
-              >
-                <span style={{ position: "relative" }}>
-                  <Image
-                    src="/images/polygonscan.svg"
-                    alt="View on Polygonscan"
-                    width={20}
-                    height={20}
-                  />
-                </span>
-              </Tooltip>
-            </a>
+
+            <Tooltip
+              label="View on PolygonScan"
+              aria-label="A tooltip"
+              placement="right-start"
+            >
+              <span style={{ position: "relative" }}>
+                <Image
+                  src="/images/polygonscan.svg"
+                  alt="View on Polygonscan"
+                  width={20}
+                  height={20}
+                />
+              </span>
+            </Tooltip>
+
           </Link>
         </>
       )}

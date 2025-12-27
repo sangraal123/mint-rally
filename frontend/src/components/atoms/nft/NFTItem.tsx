@@ -34,29 +34,29 @@ export const NFTItem: FC<Props> = ({
           p={4}
           cursor={clickable ? "pointer" : "default"}
         >
-          <NextLink href={`/nfts/${nft.tokenId}`} passHref>
-            <a>
-              <Box>
-                <Image
-                  width={500}
-                  style={{ objectFit: "cover" }}
-                  src={ipfs2http(nft.image)}
-                  alt={nft.name}
-                />
-              </Box>
-              <Box>
-                <Text
-                  fontSize="md"
-                  fontWeight="bold"
-                  mt={2}
-                  textAlign="center"
-                  wordBreak="break-all"
-                  noOfLines={2}
-                >
-                  {nft.name}
-                </Text>
-              </Box>
-            </a>
+          <NextLink href={`/nfts/${nft.tokenId}`}>
+
+            <Box>
+              <Image
+                width={500}
+                style={{ objectFit: "cover" }}
+                src={ipfs2http(nft.image)}
+                alt={nft.name}
+              />
+            </Box>
+            <Box>
+              <Text
+                fontSize="md"
+                fontWeight="bold"
+                mt={2}
+                textAlign="center"
+                wordBreak="break-all"
+                noOfLines={2}
+              >
+                {nft.name}
+              </Text>
+            </Box>
+
           </NextLink>
         </Flex>
         {showShareButtons && (

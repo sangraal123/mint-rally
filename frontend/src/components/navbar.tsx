@@ -70,11 +70,11 @@ const Login: FC = () => {
       {address && (
         <Box marginLeft={3} cursor="pointer">
           <NextLink href="/users/me">
-            <a>
-              <Button backgroundColor="yellow.900" color="white">
-                My Page
-              </Button>
-            </a>
+
+            <Button backgroundColor="yellow.900" color="white">
+              My Page
+            </Button>
+
           </NextLink>
         </Box>
       )}
@@ -115,15 +115,15 @@ const Navbar = () => {
           pr={8}
         >
           <NextLink href="/">
-            <a>
-              <Image
-                src={"/images/logo.svg"}
-                height={75}
-                width={200}
-                objectFit="contain"
-                alt="Mint Rally Logo"
-              />
-            </a>
+
+            <Image
+              src={"/images/logo.svg"}
+              height={75}
+              width={200}
+              objectFit="contain"
+              alt="Mint Rally Logo"
+            />
+
           </NextLink>
         </Flex>
         <Box pr={4} display={{ base: "none", md: "block" }}>
@@ -242,7 +242,6 @@ const Navbar = () => {
           </DrawerContent>
         </DrawerOverlay>
       </Drawer>
-
       {(!address || connecting) && (
         <ConnectWalletModal
           setConnecting={setConnecting}

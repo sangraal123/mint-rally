@@ -87,13 +87,13 @@ const Events: NextPage = () => {
                     href={"/events/" + item.eventRecordId}
                     key={item.eventRecordId.toString()}
                   >
-                    <a>
-                      <EventCard
-                        title={item.name}
-                        description={item.description}
-                        date={item.date}
-                      />
-                    </a>
+
+                    <EventCard
+                      title={item.name}
+                      description={item.description}
+                      date={item.date}
+                    />
+
                   </Link>
                 );
               })}

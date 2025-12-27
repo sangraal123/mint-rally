@@ -46,9 +46,9 @@ const EventGroups: NextPage = () => {
                     key={item.groupId.toString()}
                     href={"/event-groups/" + item.groupId}
                   >
-                    <a>
-                      <EventGroupCard title={item.name} />
-                    </a>
+
+                    <EventGroupCard title={item.name} />
+
                   </Link>
                 );
               })}

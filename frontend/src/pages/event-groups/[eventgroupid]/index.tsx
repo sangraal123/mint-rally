@@ -33,13 +33,13 @@ const EventGroup = () => {
                 href={"/events/" + event.eventRecordId}
                 key={event.eventRecordId.toString()}
               >
-                <a>
-                  <EventCard
-                    title={event.name}
-                    description={event.description}
-                    date={event.date}
-                  ></EventCard>
-                </a>
+
+                <EventCard
+                  title={event.name}
+                  description={event.description}
+                  date={event.date}
+                ></EventCard>
+
               </Link>
             );
           })}
