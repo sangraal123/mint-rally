@@ -77,7 +77,7 @@ export const useCreateEventGroup = (address: string) => {
       if (!params.groupName) return;
       try {
         await mutateAsync({ args: [params.groupName] });
-      } catch (_) {}
+      } catch (_) { }
     },
     [mutateAsync]
   );
@@ -249,7 +249,7 @@ export const useCreateEvent = (address: string) => {
             value: params.useMtx ? value : 0,
           },
         });
-      } catch (_) {}
+      } catch (_) { }
     },
     [mutateAsync, provider, getGasFee]
   );
@@ -376,14 +376,13 @@ export const useCalcMtxGasFee = (mintLimit?: number) => {
     const fetch = async () => {
       if (!provider || !mintLimit) return;
 
-      const gasPrice = (await provider.getGasPrice())?.toNumber();
-      const value = ethers.utils.parseEther(
-        `${(
-          gasPrice *
-          mintLimit *
-          (660000 * 1.15 * 0.000000000000000001)
-        ).toFixed(6)}`
-      );
+      const gasPrice = await provider.getGasPrice();
+      // gasPrice * mintLimit * 660000 * 1.15
+      const value = gasPrice
+        .mul(mintLimit)
+        .mul(660000)
+        .mul(115)
+        .div(100);
       setGasFee(value);
     };
 
@@ -393,16 +392,13 @@ export const useCalcMtxGasFee = (mintLimit?: number) => {
   const getGasFee = useCallback(
     async (_mintLimit: number) => {
       if (!provider) return;
-      const gasPrice = (await provider.getGasPrice())?.toNumber();
-      const value = ethers.utils.parseEther(
-        `${(
-          gasPrice *
-          _mintLimit *
-          660000 *
-          1.15 *
-          0.000000000000000001
-        ).toFixed(6)}`
-      );
+      const gasPrice = await provider.getGasPrice();
+      // gasPrice * _mintLimit * 660000 * 1.15
+      const value = gasPrice
+        .mul(_mintLimit)
+        .mul(660000)
+        .mul(115)
+        .div(100);
       return value;
     },
     [provider]
@@ -455,7 +451,7 @@ export const useGrantRole = () => {
         await mutateAsync({
           args: [params.groupId, params.address, bytes32Role],
         });
-      } catch (_) {}
+      } catch (_) { }
     },
     [mutateAsync]
   );
@@ -489,7 +485,7 @@ export const useRevokeRole = () => {
         await mutateAsync({
           args: [params.groupId, params.address, bytes32Role],
         });
-      } catch (_) {}
+      } catch (_) { }
     },
     [mutateAsync]
   );
