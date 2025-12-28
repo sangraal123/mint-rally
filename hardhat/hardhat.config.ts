@@ -35,6 +35,11 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
+    sepolia: {
+      url: process.env.SEPOLIA_ALCHEMY_KEY || "",
+      accounts:
+        process.env.SEPOLIA_PRIVATE_KEY !== undefined ? [process.env.SEPOLIA_PRIVATE_KEY] : [],
+    },
     local: {
       url: "http://localhost:8545",
       accounts: [String(process.env.LOCAL_PRIVATE_KEY)],

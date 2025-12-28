@@ -37,8 +37,8 @@ yarn-error.log*
 *.tsbuildinfo
 
 # environment
-.env[\.*]
-.env
+#.env[\.*]
+#.env
 
 # Sentry Config File
 .sentryclirc
