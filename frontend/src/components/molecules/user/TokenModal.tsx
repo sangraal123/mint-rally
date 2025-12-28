@@ -33,8 +33,10 @@ const TokenModal: FC<Props> = ({ isOpen, onClose, nft, tokenId, address }) => {
     return chainId === "80001"
       ? "https://testnets.opensea.io/assets/mumbai"
       : chainId === "137"
-      ? "https://opensea.io/assets/matic"
-      : "localhost";
+        ? "https://opensea.io/assets/matic"
+        : chainId === "11155111"
+          ? "https://testnets.opensea.io/assets/sepolia"
+          : "localhost";
   };
 
   return (
@@ -72,9 +74,8 @@ const TokenModal: FC<Props> = ({ isOpen, onClose, nft, tokenId, address }) => {
 
           <Box mt={2}>
             <Link
-              href={`${openseaLinkByChainId()}/${
-                process.env.NEXT_PUBLIC_CONTRACT_MINT_NFT_MANAGER
-              }/${tokenId}`}
+              href={`${openseaLinkByChainId()}/${process.env.NEXT_PUBLIC_CONTRACT_MINT_NFT_MANAGER
+                }/${tokenId}`}
               target="_blank"
             >
               View on OpenSea

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useLocale } from "./useLocale";
 import { useRouter } from "next/router";
 import { useWeb3WalletConfig } from "src/libs/web3Config";
-import { Localhost, Mumbai, Polygon } from "@thirdweb-dev/chains";
+import { Localhost, Mumbai, Polygon, Sepolia } from "@thirdweb-dev/chains";
 import { useConnect } from "@thirdweb-dev/react";
 
 export const chainId = process.env.NEXT_PUBLIC_CHAIN_ID!;
@@ -10,8 +10,10 @@ export const activeChain =
   chainId === "80001"
     ? Mumbai
     : chainId === "137"
-    ? Polygon
-    : { ...Localhost, chainId: 31337 };
+      ? Polygon
+      : chainId === "11155111"
+        ? Sepolia
+        : { ...Localhost, chainId: 31337 };
 
 export const useWalletConnect = (onStartConnect?: () => void) => {
   const { walletConnectConfig } = useWeb3WalletConfig();
@@ -23,7 +25,7 @@ export const useWalletConnect = (onStartConnect?: () => void) => {
       await connect(walletConnectConfig, {
         chainId: activeChain.chainId,
       });
-    } catch (_) {}
+    } catch (_) { }
   }, [connect, walletConnectConfig]);
 
   return handleConnect;
@@ -31,7 +33,9 @@ export const useWalletConnect = (onStartConnect?: () => void) => {
 
 export const useConnectMagic = (email: string) => {
   const { magicLinkConfig } = useWeb3WalletConfig();
-  const magic = magicLinkConfig.create({ chain: Mumbai });
+  const magic = magicLinkConfig.create({
+    chain: chainId === "11155111" ? Sepolia : Mumbai,
+  });
   const connect = useConnect();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -77,9 +81,8 @@ export const useDeeplink2Metamask = () => {
   const deeplink = useCallback(() => {
     if (!window.ethereum) {
       if (navigator.userAgent.match(/iPhone|Android.+Mobile/)) {
-        window.location.href = `https://metamask.app.link/dapp/${
-          process.env.NEXT_PUBLIC_CHAIN_ID === "137" ? "" : "staging."
-        }mintrally.xyz/${locale}${asPath}`;
+        window.location.href = `https://metamask.app.link/dapp/${process.env.NEXT_PUBLIC_CHAIN_ID === "137" ? "" : "staging."
+          }mintrally.xyz/${locale}${asPath}`;
       } else {
         window.open("https://metamask.io/", "_blank");
       }

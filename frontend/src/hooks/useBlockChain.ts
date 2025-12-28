@@ -12,8 +12,10 @@ export const useCurrentBlock = () => {
           chainId === "80001"
             ? "mumbai"
             : chainId === "137"
-            ? "polygon"
-            : "localhost",
+              ? "polygon"
+              : chainId === "11155111"
+                ? "sepolia"
+                : "localhost",
       });
       setCurrentBlock(number);
     };
