@@ -35,27 +35,25 @@ const ENSName: FC<Props> = ({
       {enableEtherScanLink && (
         <>
           <Link
-            href={`https://${
-              chainId === "137" ? "polygonscan.com" : "mumbai.polygonscan.com"
-            }/address/${address}`}
+            href={`${process.env.NEXT_PUBLIC_BLOCK_EXPLORER_URL ||
+              "https://sepolia.etherscan.io"
+              }/address/${address}`}
             target="_blank"
           >
-
             <Tooltip
-              label="View on PolygonScan"
+              label="View on Etherscan"
               aria-label="A tooltip"
               placement="right-start"
             >
               <span style={{ position: "relative" }}>
                 <Image
-                  src="/images/polygonscan.svg"
-                  alt="View on Polygonscan"
+                  src="/images/etherscan.svg"
+                  alt="View on Etherscan"
                   width={20}
                   height={20}
                 />
               </span>
             </Tooltip>
-
           </Link>
         </>
       )}
