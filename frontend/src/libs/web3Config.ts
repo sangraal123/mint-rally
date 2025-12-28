@@ -1,4 +1,4 @@
-import { Localhost, Mumbai, Polygon } from "@thirdweb-dev/chains";
+import { Localhost, Mumbai, Polygon, Sepolia } from "@thirdweb-dev/chains";
 import {
   magicLink,
   metamaskWallet,
@@ -13,11 +13,16 @@ export const activeChain =
   chainId === "80001"
     ? { ...Mumbai, rpc: [process.env.NEXT_PUBLIC_PROVIDER_RPC!, ...Mumbai.rpc] }
     : chainId === "137"
-    ? {
+      ? {
         ...Polygon,
         rpc: [process.env.NEXT_PUBLIC_PROVIDER_RPC!, ...Polygon.rpc],
       }
-    : { ...Localhost, rpc: ["http://localhost:8545"], chainId: 31337 };
+      : chainId === "11155111"
+        ? {
+          ...Sepolia,
+          rpc: [process.env.NEXT_PUBLIC_PROVIDER_RPC!, ...Sepolia.rpc],
+        }
+        : { ...Localhost, rpc: ["http://localhost:8545"], chainId: 31337 };
 
 export const useWeb3WalletConfig = () => {
   const { t, locale } = useLocale();
