@@ -41,11 +41,23 @@ export default async function handler(
     // URL: /api/v1/relayers/transactions
     // Header: Authorization: Bearer <KEY>
 
+    // Estimate Gas
+    const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_PROVIDER_RPC);
+    const gasEstimate = await provider.estimateGas({
+      to: process.env.NEXT_PUBLIC_FORWARDER_ADDRESS,
+      data: encodedData,
+    });
+
+    // Add 20% buffer
+    const gasLimit = gasEstimate.mul(120).div(100).toNumber();
+    console.log("Estimated Gas:", gasEstimate.toString());
+    console.log("Gas Limit with buffer:", gasLimit);
+
     const payload = {
       to: process.env.NEXT_PUBLIC_FORWARDER_ADDRESS,
       data: encodedData,
       value: "0",
-      gasLimit: 5000000,
+      gasLimit: gasLimit,
       speed: "fast"
     };
 
