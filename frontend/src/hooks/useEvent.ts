@@ -382,7 +382,7 @@ export const useCalcMtxGasFee = (mintLimit?: number) => {
 
       const value = effectiveGasPrice
         .mul(mintLimit)
-        .mul(2000000)
+        .mul(800000)
         .mul(150)
         .div(100);
       setGasFee(value);
@@ -400,7 +400,7 @@ export const useCalcMtxGasFee = (mintLimit?: number) => {
 
       const value = effectiveGasPrice
         .mul(_mintLimit)
-        .mul(2000000)
+        .mul(800000)
         .mul(150)
         .div(100);
       return value;
