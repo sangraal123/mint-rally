@@ -17,7 +17,12 @@ export const ViewButtons: FC<Props> = ({
 }) => {
   const router = useRouter();
 
-  const openseaUrl = `https://opensea.io/assets/matic/${process.env.NEXT_PUBLIC_CONTRACT_MINT_NFT_MANAGER}/${tokenId}`;
+  const chainId = process.env.NEXT_PUBLIC_CHAIN_ID;
+  const baseUrl = chainId === "11155111"
+    ? "https://testnets.opensea.io/assets/sepolia"
+    : "https://opensea.io/assets/matic";
+
+  const openseaUrl = `${baseUrl}/${process.env.NEXT_PUBLIC_CONTRACT_MINT_NFT_MANAGER}/${tokenId}`;
 
   return (
     <Flex alignItems="center" my={2}>

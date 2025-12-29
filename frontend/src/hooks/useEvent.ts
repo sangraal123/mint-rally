@@ -380,8 +380,8 @@ export const useCalcMtxGasFee = (mintLimit?: number) => {
       // gasPrice * mintLimit * 660000 * 1.15
       const value = gasPrice
         .mul(mintLimit)
-        .mul(660000)
-        .mul(115)
+        .mul(1000000)
+        .mul(150)
         .div(100);
       setGasFee(value);
     };
@@ -396,8 +396,8 @@ export const useCalcMtxGasFee = (mintLimit?: number) => {
       // gasPrice * _mintLimit * 660000 * 1.15
       const value = gasPrice
         .mul(_mintLimit)
-        .mul(660000)
-        .mul(115)
+        .mul(1000000)
+        .mul(150)
         .div(100);
       return value;
     },

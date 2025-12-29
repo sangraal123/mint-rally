@@ -208,8 +208,8 @@ const CreateEventForm: FC<Props> = ({ address }) => {
           )
             .toString()
             .padStart(2, "0")}-${parseInt(formattedDate.split("-")[2])
-            .toString()
-            .padStart(2, "0")}`;
+              .toString()
+              .padStart(2, "0")}`;
           return { finalFormattedDate, time };
         };
 
@@ -576,7 +576,7 @@ const CreateEventForm: FC<Props> = ({ address }) => {
                       <Box as="span" fontWeight="bold" fontSize="md" pr={1}>
                         {formatEther(gasFee || 0)}
                       </Box>
-                      MATIC
+                      ETH
                     </Text>
                   )}
                 </FormControl>
