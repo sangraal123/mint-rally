@@ -229,13 +229,13 @@ export const useGetOwnedNFTByAddress = (address?: string) => {
 
       const metaDataPromises = ownerTokensDetails.map(
         ({ eventId, tokenId, tokenUri }) => {
-          const getMetaData = async (tokenURI: string, tokenId: number) => {
+          const getMetaData = async (tokenURI: string, tokenId: number, eventId: number) => {
             try {
               const { data: metaData } = await axios.get(ipfs2http(tokenURI));
-              return { ...metaData, tokenId };
-            } catch (_) {}
+              return { ...metaData, tokenId, eventId };
+            } catch (_) { }
           };
-          return getMetaData(tokenUri, tokenId);
+          return getMetaData(tokenUri, tokenId, eventId);
         }
       );
       const _nfts = await Promise.all(metaDataPromises);
@@ -371,7 +371,7 @@ export const useMintParticipateNFT = (
         await mutateAsync({
           args: [event.groupId, event.eventRecordId, proof?.proofCalldata],
         });
-      } catch (_) {}
+      } catch (_) { }
     },
     [event, mutateAsync]
   );
@@ -487,7 +487,7 @@ export const useMintLock = (eventId: number | BigNumber, locked: boolean) => {
   const lock = useCallback(async () => {
     try {
       await mutateAsync({ args: [eventId, locked] });
-    } catch (_) {}
+    } catch (_) { }
   }, [eventId, locked, mutateAsync]);
 
   const isSuccess = useMemo(() => {
@@ -528,7 +528,7 @@ export const useTransferLock = (
   const lock = useCallback(async () => {
     try {
       await mutateAsync({ args: [eventId, locked] });
-    } catch (_) {}
+    } catch (_) { }
   }, [eventId, locked, mutateAsync]);
 
   const isSuccess = useMemo(() => {
@@ -595,7 +595,7 @@ export const useResetSecretPhrase = (eventId: number | BigNumber) => {
       try {
         const proof = await generateProof(newSecretPhrase);
         await mutateAsync({ args: [eventId, proof?.publicInputCalldata[0]] });
-      } catch (_) {}
+      } catch (_) { }
     },
     [mutateAsync, eventId]
   );

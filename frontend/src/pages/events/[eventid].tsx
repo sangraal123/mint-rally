@@ -33,8 +33,10 @@ const MintNFTSection: FC<{ event: EventType.EventRecord }> = ({ event }) => {
     if (!nfts || !event) return null;
     return nfts.find(
       (nft) =>
-        nft.traits.EventName === event.name &&
-        nft.traits.EventGroupId === event.groupId.toString()
+        (nft.eventId !== undefined &&
+          Number(nft.eventId) === Number(event.eventRecordId)) ||
+        (nft.traits.EventName === event.name &&
+          nft.traits.EventGroupId === event.groupId.toString())
     );
   }, [nfts, address, event]);
 

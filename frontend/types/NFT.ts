@@ -1,6 +1,7 @@
 export namespace NFT {
   export interface Metadata {
     tokenId?: number;
+    eventId?: number;
     name: string;
     image: string;
     animation_url?: string;
