@@ -68,7 +68,7 @@ const EventGroupTab: FC<Props> = ({ group }) => {
         >
           {t.EVENT_GROUP_TAB_LEADERS}
         </Tab>
-        {(group.ownerAddress === address || memberRole?.admin) && (
+        {(group.ownerAddress.toLowerCase() === address?.toLowerCase() || memberRole?.admin) && (
           <Tab
             _selected={{
               borderColor: "mintGreen.300",
@@ -83,7 +83,7 @@ const EventGroupTab: FC<Props> = ({ group }) => {
             {t.RBAC_EDIT_COLLABORATORS}
           </Tab>
         )}
-        {(group.ownerAddress === address) && (
+        {(group.ownerAddress.toLowerCase() === address?.toLowerCase()) && (
           <Tab
             _selected={{
               borderColor: "mintGreen.300",
@@ -95,9 +95,9 @@ const EventGroupTab: FC<Props> = ({ group }) => {
               router.push(`/event-groups/${router.query.eventgroupid}/transfer`)
             }
           >
-          {t.EVENT_GROUP_TAB_TRANSFER}
+            {t.EVENT_GROUP_TAB_TRANSFER}
           </Tab>
-        )}  
+        )}
       </TabList>
     </Tabs>
   );
