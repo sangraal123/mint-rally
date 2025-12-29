@@ -44,6 +44,7 @@ export default async function handler(
     const payload = {
       to: process.env.NEXT_PUBLIC_FORWARDER_ADDRESS,
       data: encodedData,
+      value: "0",
       gasLimit: 5000000,
       speed: "fast"
     };
