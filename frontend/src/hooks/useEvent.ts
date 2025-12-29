@@ -377,7 +377,7 @@ export const useCalcMtxGasFee = (mintLimit?: number) => {
       if (!provider || !mintLimit) return;
 
       const gasPrice = await provider.getGasPrice();
-      const minGasPrice = ethers.utils.parseUnits("10", "gwei");
+      const minGasPrice = ethers.utils.parseUnits("1", "gwei");
       const effectiveGasPrice = gasPrice.gt(minGasPrice) ? gasPrice : minGasPrice;
 
       const value = effectiveGasPrice
@@ -395,7 +395,7 @@ export const useCalcMtxGasFee = (mintLimit?: number) => {
     async (_mintLimit: number) => {
       if (!provider) return;
       const gasPrice = await provider.getGasPrice();
-      const minGasPrice = ethers.utils.parseUnits("10", "gwei");
+      const minGasPrice = ethers.utils.parseUnits("1", "gwei");
       const effectiveGasPrice = gasPrice.gt(minGasPrice) ? gasPrice : minGasPrice;
 
       const value = effectiveGasPrice
