@@ -12,6 +12,7 @@ import {
 } from "../typechain";
 
 const OWNER_ADDRESS = "0x7CA59586338fF416769846Be369E1706b18F4f89";
+const RELAYER_ADDRESS = "0xe67f015837930043fc1acaec777e9ba716a5d2ac";
 
 async function main() {
     let mintNFT: MintNFT;
@@ -78,7 +79,7 @@ async function main() {
         EventManagerFactory,
         [
             deployer.address,
-            process.env.SEPOLIA_RELAYER_ADDRESS || deployer.address,
+            RELAYER_ADDRESS,
             250000,
             1000000,
             operationController.address,

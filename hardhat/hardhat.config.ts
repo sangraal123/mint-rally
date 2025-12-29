@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 
 import { HardhatUserConfig, task } from "hardhat/config";
-import "@nomiclabs/hardhat-etherscan";
+import "@nomicfoundation/hardhat-verify";
 import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
@@ -56,16 +56,6 @@ const config: HardhatUserConfig = {
       polygonMumbai: String(process.env.ETHERSCAN_API_KEY),
       sepolia: String(process.env.ETHERSCAN_API_KEY),
     },
-    customChains: [
-      {
-        network: "sepolia",
-        chainId: 11155111,
-        urls: {
-          apiURL: "https://api.etherscan.io/v2/api?chainid=11155111",
-          browserURL: "https://sepolia.etherscan.io",
-        },
-      },
-    ],
   },
   mocha: {
     timeout: 600000,

@@ -1,16 +1,17 @@
 import { run, upgrades } from "hardhat";
 
-const FORWARDER = "0x94D59635d245dcf953C9F658813312eB556eF977";
-const MINT_NFT_PROXY = "0x73501F37CE694918713eC8Eca4697166833a696A";
-const EVENT_MANAGER_PROXY = "0x6Ce254b5c0a53506bBC64F4BA1BEB237f38fad30";
-const SECRET_PHRASE_VERIFIER = "0x0D1108e8b0878183d7668BfB72Db68b76f6DfdB7";
-const OPERATION_CONTROLLER = "0x22Af9c01EFA249c431a41Cde9C9B5934a56eF71A";
+const FORWARDER = "0x3d01b5d1e8dC61247559DAAeE6364Bf93cE338b5";
+const MINT_NFT_PROXY = "0x866131722F7CAE06C33704c79aF1ff9088ff37B6";
+const EVENT_MANAGER_PROXY = "0xc13cD875B74285bE88C8B0debC0A2Bb15Bd8eD18";
+const SECRET_PHRASE_VERIFIER = "0x5084b81581b4ce9B96c1E0FAcB1B0b2C379F68f9";
+const OPERATION_CONTROLLER = "0x58d1bcFf61Ae6a0Cf7414485ae615168Dbd9FaCb";
 
 async function verify(address: string, constructorArguments: any[] = []) {
     try {
         await run("verify:verify", {
             address,
             constructorArguments,
+            force: true,
         });
         console.log(`Verified ${address}`);
     } catch (error: any) {
