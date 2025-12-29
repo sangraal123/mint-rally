@@ -80,7 +80,7 @@ async function main() {
         [
             deployer.address,
             RELAYER_ADDRESS,
-            250000,
+            600000,
             1000000,
             operationController.address,
         ],
