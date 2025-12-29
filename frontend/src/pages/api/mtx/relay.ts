@@ -1,9 +1,11 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
+import { ethers } from "ethers";
+import MintRallyForwarderABI from "../../../contracts/Fowarder.json";
 
-// Environment variables for custom relayer
-// OZ_RELAYER_API_KEYS is used as the API Key storage for compatibility
-const RELAYER_API_URL = "http://34.97.56.160:8080/api/v1/relayers";
+// Config
+const RELAYER_ID = "sepolia-example";
+const RELAYER_TRANSACTION_ENDPOINT = `http://34.97.56.160:8080/api/v1/relayers/${RELAYER_ID}/transactions`;
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,7 +17,7 @@ export default async function handler(
     console.log("Processing custom relay request...", req.body);
     const { request, signature } = req.body;
 
-    // Parse the API Key from the existing env var structure (array of strings or raw string)
+    // 1. Get API Key for Authorization Header
     let apiKey = "";
     try {
       const apiKeys = JSON.parse(process.env.OZ_RELAYER_API_KEYS || "[]");
@@ -25,24 +27,31 @@ export default async function handler(
         apiKey = process.env.OZ_RELAYER_API_KEYS || "";
       }
     } catch (e) {
-      // If not JSON, assumes it's a direct string
       apiKey = process.env.OZ_RELAYER_API_KEYS || "";
     }
-
-    // Clean up the key if it accidentally contains quotes or brackets from manual entry errors
     apiKey = apiKey.replace(/['"\[\]]/g, '');
 
+    if (!apiKey) throw new Error("Missing Relayer API Key");
+
+    // 2. Encode the function call: forwarder.execute(request, signature)
+    const forwarderInterface = new ethers.utils.Interface(MintRallyForwarderABI.abi);
+    const encodedData = forwarderInterface.encodeFunctionData("execute", [request, signature]);
+
+    // 3. Construct payload
+    // URL: /api/v1/relayers/transactions
+    // Header: Authorization: Bearer <KEY>
+
     const payload = {
-      request: request,
-      signature: signature,
-      metadata: {
-        signatureType: 'EIP712_V4'
-      }
+      to: process.env.NEXT_PUBLIC_FORWARDER_ADDRESS,
+      data: encodedData,
+      gasLimit: 5000000,
+      speed: "fast"
     };
 
-    console.log("Sending to Custom Relayer:", RELAYER_API_URL);
+    console.log("Sending Transaction to:", RELAYER_TRANSACTION_ENDPOINT);
+    // console.log("Payload:", JSON.stringify(payload, null, 2));
 
-    const response = await axios.post(RELAYER_API_URL, payload, {
+    const response = await axios.post(RELAYER_TRANSACTION_ENDPOINT, payload, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${apiKey}`
@@ -50,7 +59,12 @@ export default async function handler(
     });
 
     console.log("Relayer Response:", response.data);
-    res.status(200).json(response.data);
+
+    const result = {
+      tx: response.data
+    };
+
+    res.status(200).json(result);
 
   } catch (error: any) {
     console.error("Custom Relay Error:", error.message);
