@@ -51,7 +51,21 @@ const config: HardhatUserConfig = {
     currency: "USD",
   },
   etherscan: {
-    apiKey: process.env.ETHERSCAN_API_KEY,
+    apiKey: {
+      polygon: String(process.env.ETHERSCAN_API_KEY),
+      polygonMumbai: String(process.env.ETHERSCAN_API_KEY),
+      sepolia: String(process.env.ETHERSCAN_API_KEY),
+    },
+    customChains: [
+      {
+        network: "sepolia",
+        chainId: 11155111,
+        urls: {
+          apiURL: "https://api.etherscan.io/v2/api?chainid=11155111",
+          browserURL: "https://sepolia.etherscan.io",
+        },
+      },
+    ],
   },
   mocha: {
     timeout: 600000,

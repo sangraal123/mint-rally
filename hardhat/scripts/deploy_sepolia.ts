@@ -11,6 +11,8 @@ import {
     OperationController,
 } from "../typechain";
 
+const OWNER_ADDRESS = "0x7CA59586338fF416769846Be369E1706b18F4f89";
+
 async function main() {
     let mintNFT: MintNFT;
     let eventManager: EventManager;
@@ -36,6 +38,24 @@ async function main() {
     );
     operationController = await OperationControllerFactory.deploy();
     await operationController.deployed();
+
+    console.log("Deployer:", deployer.address);
+    console.log("OperationController deployed at:", operationController.address);
+
+    // Initialize and transfer ownership
+    const initTx = await operationController.initialize();
+    await initTx.wait();
+
+    const ownerAfterInit = await operationController.owner();
+    console.log("OperationController owner after init:", ownerAfterInit);
+
+    if (ownerAfterInit.toLowerCase() !== deployer.address.toLowerCase()) {
+        console.error("ERROR: Owner is not deployer!");
+    }
+
+    const transferTx = await operationController.transferOwnership(OWNER_ADDRESS);
+    await transferTx.wait();
+    console.log("Ownership transferred to:", OWNER_ADDRESS);
 
     const MintNFTFactory = await ethers.getContractFactory("MintNFT");
     const deployedMintNFT: any = await upgrades.deployProxy(
@@ -72,6 +92,10 @@ async function main() {
 
     await mintNFT.setEventManagerAddr(eventManager.address);
     await eventManager.setMintNFTAddr(mintNFT.address);
+
+    // Transfer ownership after setup
+    await mintNFT.transferOwnership(OWNER_ADDRESS);
+    await eventManager.transferOwnership(OWNER_ADDRESS);
 
     console.log("forwarder address:", forwarder.address);
     console.log("secretPhraseVerifier address:", secretPhraseVerifier.address);
